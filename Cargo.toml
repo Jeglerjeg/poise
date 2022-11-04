@@ -26,7 +26,7 @@ features = ["builder", "client", "gateway", "model", "utils", "collector"]
 # version = "0.11.4"
 
 git = "https://github.com/serenity-rs/serenity"
-rev = "5ff1a2a0a619e91842144256001bf2664edbb9c1"
+rev = "9aabca8eb49e7c69614b8559c05469a392aa804a"
 
 # path = "../_downloaded/serenity"
 
