@@ -58,8 +58,8 @@ You can run Discord actions outside of commands by cloning and storing [`serenit
 [`Arc<serenity::Http>`](serenity::Http)/[`Arc<serenity::Cache>`](serenity::Cache). You can get
 those either from [`serenity::Context`] (passed to
 [`user_data_setup`](crate::FrameworkBuilder::user_data_setup) and all commands via
-[`ctx.discord()`](crate::Context::discord)) or before starting the framework via
-[`framework.client()`](crate::Framework::client)[`.cache_and_http`](serenity::Client::cache_and_http).
+[`ctx.discord()`](crate::Context::discord)) or before starting the client via
+[`cache_and_http`](serenity::Client::cache_and_http).
 
 Pass your `CacheAndHttp` or `Arc<Http>` to serenity functions in place of the usual
 `serenity::Context`
@@ -321,7 +321,6 @@ Also, poise is a stat in Dark Souls
 pub mod builtins;
 pub mod cooldown;
 pub mod dispatch;
-pub mod event;
 pub mod framework;
 pub mod modal;
 pub mod prefix_argument;
@@ -338,8 +337,8 @@ pub mod macros {
 
 #[doc(no_inline)]
 pub use {
-    cooldown::*, dispatch::*, event::*, framework::*, macros::*, modal::*, prefix_argument::*,
-    reply::*, slash_argument::*, structs::*, track_edits::*,
+    cooldown::*, dispatch::*, framework::*, macros::*, modal::*, prefix_argument::*, reply::*,
+    slash_argument::*, structs::*, track_edits::*,
 };
 
 /// See [`builtins`]
@@ -351,35 +350,7 @@ pub mod samples {
 #[doc(hidden)]
 pub use {async_trait::async_trait, futures_util};
 
-/// This module re-exports a bunch of items from all over serenity. Useful if you can't
-/// remember the full paths of serenity items.
-///
-/// One way to use this prelude module in your project is
-/// ```rust
-/// use poise::serenity_prelude as serenity;
-/// ```
-pub mod serenity_prelude {
-    #[doc(no_inline)]
-    #[cfg(feature = "cache")]
-    pub use serenity::cache::*;
-    #[doc(no_inline)]
-    pub use serenity::{
-        async_trait,
-        builder::*,
-        client::{
-            bridge::gateway::{event::*, *},
-            *,
-        },
-        collector::*,
-        gateway::*,
-        http::*,
-        model::application::{command::*, component::*},
-        model::prelude::*,
-        prelude::*,
-        utils::*,
-        *,
-    };
-}
+pub use ::serenity::all as serenity_prelude;
 use serenity_prelude as serenity; // private alias for crate root docs intradoc-links
 
 /// Shorthand for a wrapped async future with a lifetime, used by many parts of this framework.
